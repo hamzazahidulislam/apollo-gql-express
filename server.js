@@ -1,12 +1,10 @@
-/** @format */
-
 const express = require('express')
-const {gql, ApolloServer} = require('apollo-server-express')
+const {ApolloServer, gql} = require('apollo-server-express')
 
 const typeDefs = gql`
-     type Query {
-          hello:String;
-     }
+ type Query {
+   hello:String;
+ }
 `
 
 const resolvers = {
@@ -20,17 +18,21 @@ const resolvers = {
 async function startServer() {
   const app = express()
   const apolloServer = new ApolloServer({
-    typeDefs,
-    resolvers,
+    typeDefs: typeDefs,
+    resolvers: resolvers,
   })
 
-  await apolloServer.start()
+  try {
+    await apolloServer.start()
 
-  app.use((req, res) => {
-    res.send('Hello from express apollo server')
-  })
+    app.use((req, res) => {
+      res.send('Hello from express apollo server')
+    })
 
-  apolloServer.applyMiddleware({app: app})
-  app.listen(4000, () => console.log('listening on port 4000'))
+    apolloServer.applyMiddleware({app: app})
+    app.listen(4000, () => console.log('listening on port 4000'))
+  } catch (error) {
+    console.log(error.message)
+  }
 }
 startServer()
