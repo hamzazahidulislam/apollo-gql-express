@@ -1,5 +1,7 @@
+/** @format */
+
 const express = require('express')
-const {ApolloService, gql} = require('apollo-server-express')
+const {gql, ApolloServer} = require('apollo-server-express')
 
 const typeDefs = gql`
      type Query {
@@ -7,7 +9,13 @@ const typeDefs = gql`
      }
 `
 
-const resolvers = {}
+const resolvers = {
+  Query: {
+    hello: () => {
+      return 'Hello, world'
+    },
+  },
+}
 
 async function startServer() {
   const app = express()
@@ -22,7 +30,7 @@ async function startServer() {
     res.send('Hello from express apollo server')
   })
 
-  apolloServer.applyMiddleware = {app: app}
+  apolloServer.applyMiddleware({app: app})
   app.listen(4000, () => console.log('listening on port 4000'))
 }
 startServer()

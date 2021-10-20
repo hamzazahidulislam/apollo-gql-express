@@ -19,5 +19,6 @@
     "javascript": "javascriptreact"
   },
   "editor.fontSize": 17,
-  "terminal.integrated.lineHeight": 34
+  "terminal.integrated.lineHeight": 34,
+  "compile-hero.disable-compile-files-on-did-save-code": false
 }
