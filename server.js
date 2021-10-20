@@ -1,38 +1,18 @@
 const express = require('express')
+const app = express()
 const {ApolloServer, gql} = require('apollo-server-express')
 
-const typeDefs = gql`
- type Query {
-   hello:String;
- }
-`
-
-const resolvers = {
-  Query: {
-    hello: () => {
-      return 'Hello, world'
-    },
-  },
-}
+const typeDefs = require('./gql/schema')
+const resolvers = require('./gql/resolvers')
 
 async function startServer() {
-  const app = express()
-  const apolloServer = new ApolloServer({
-    typeDefs: typeDefs,
-    resolvers: resolvers,
-  })
+  const server = new ApolloServer({typeDefs, resolvers})
+  await server.start()
+  server.applyMiddleware({app, path: '/graphql'})
 
-  try {
-    await apolloServer.start()
-
-    app.use((req, res) => {
-      res.send('Hello from express apollo server')
-    })
-
-    apolloServer.applyMiddleware({app: app})
-    app.listen(4000, () => console.log('listening on port 4000'))
-  } catch (error) {
-    console.log(error.message)
-  }
+  app.listen({port: 4000}, () =>
+    console.log('Now browse to http://localhost:4000' + server.graphqlPath)
+  )
 }
+
 startServer()
