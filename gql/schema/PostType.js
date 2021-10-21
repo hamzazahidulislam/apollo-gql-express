@@ -1,4 +1,4 @@
-const {ApolloServer, gql} = require('apollo-server-express')
+const {gql} = require('apollo-server-express')
 module.exports = gql`
   type Post {
     id: ID
@@ -19,7 +19,7 @@ module.exports = gql`
   }
 
   type Mutation {
-    createPost(title: String, description: String): Post
+    createPost(post: PostInput): Post
     deletePost(id: ID): String
     updatePost(id: ID, title: String, description: String): Post
   }
