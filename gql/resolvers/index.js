@@ -1,3 +1,3 @@
-const bookResolver=require('./bookRelover')
+const bookResolver=require('./PostRelover')
 
 module.exports=[bookResolver]

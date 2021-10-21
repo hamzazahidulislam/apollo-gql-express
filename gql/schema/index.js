@@ -1,15 +1,13 @@
-const { ApolloServer, gql } = require('apollo-server-express');
-const bookSchema=require('./bookSchema')
+const {ApolloServer, gql} = require('apollo-server-express')
+const PostType = require('./PostType')
 const rootScema = gql`
-
   type Query {
-   _:Boolean
+    _: Boolean
   }
 
- type Mutation{
-     _:Boolean
- }
+  type Mutation {
+    _: Boolean
+  }
+`
 
-`;
-
-module.exports=[rootScema,bookSchema]
+module.exports = [rootScema, PostType]
