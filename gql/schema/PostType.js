@@ -5,7 +5,7 @@ module.exports = gql`
     title: String
     description: String
   }
-  extend type Query {
+  type Query {
     hello: String
 
     getAllPosts: [Post]
@@ -18,7 +18,7 @@ module.exports = gql`
     description: String
   }
 
-  extend type Mutation {
+  type Mutation {
     createPost(title: String, description: String): Post
     deletePost(id: ID): String
     updatePost(id: ID, title: String, description: String): Post
