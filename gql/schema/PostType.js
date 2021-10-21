@@ -21,5 +21,6 @@ module.exports = gql`
   extend type Mutation {
     createPost(title: String, description: String): Post
     deletePost(id: ID): String
+    updatePost(id: ID, title: String, description: String): Post
   }
 `

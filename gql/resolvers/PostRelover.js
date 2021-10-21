@@ -23,5 +23,17 @@ module.exports = {
       await Post.findByIdAndDelete(id)
       return 'Ok. post deleted'
     },
+    updatePost: async (parent, args, context, info) => {
+      const {id, title, description} = args
+      const updates = {}
+      if (title != undefined) {
+        updates.title = title
+      }
+      if (description != undefined) {
+        updates.description = description
+      }
+      const post = await Post.findByIdAndUpdate(id, updates, {new: true})
+      return post
+    },
   },
 }
